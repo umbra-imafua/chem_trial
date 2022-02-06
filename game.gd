@@ -2,7 +2,6 @@ extends Node2D
 
 var frame = 0
 ##################################
-var seedint = randi()
 var map = []
 #         0=ocean,1=land,2=mountain
 ##################################
@@ -11,13 +10,14 @@ var map = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	mapgen()
 
 func mapgen():
 	map.clear()
 	
 	var noise = OpenSimplexNoise.new()
-	noise.seed = seedint
+	noise.seed = randi()
 	noise.octaves = 4
 	noise.period = 20.0
 	noise.persistence = 0.8
@@ -36,7 +36,6 @@ func mapgen():
 func _process(_delta):
 	frame+=1
 	if frame%60==0:
-		seedint = randi()
 		mapgen()
 	
 	
